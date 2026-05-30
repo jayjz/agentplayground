@@ -1,6 +1,5 @@
 """Seed endpoint for P0 - populates memory store with sample data"""
 from fastapi import APIRouter
-from app.db.memory_store import store
 from app.services.signal_engine import SignalEngine
 from app.services.audit_service import write_audit
 from datetime import datetime, timedelta
@@ -16,14 +15,6 @@ async def seed_data():
     """Seed the database with sample data"""
     
     # Clear existing data
-    store.data = {
-        "assets": [],
-        "signals": [],
-        "events": [],
-        "trade_candidates": [],
-        "order_proposals": [],
-        "audits": [],
-    }
     
     # Sample assets
     assets = [

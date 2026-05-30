@@ -1,6 +1,5 @@
 """Events API"""
 from fastapi import APIRouter, Query
-from app.db.memory_store import store
 
 router = APIRouter()
 
