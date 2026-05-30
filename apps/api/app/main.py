@@ -8,7 +8,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.logging import setup_logging
 from app.telemetry import setup_telemetry
-from app.api import health, signals, events, agents, portfolio, backtests, audits, data_sources, assets, seed
 
 
 @asynccontextmanager
@@ -55,7 +54,6 @@ api_v1.include_router(agents.router, prefix="/agents", tags=["agents"])
 api_v1.include_router(portfolio.router, prefix="/portfolio", tags=["portfolio"])
 api_v1.include_router(backtests.router, prefix="/backtests", tags=["backtests"])
 api_v1.include_router(audits.router, prefix="/audits", tags=["audits"])
-api_v1.include_router(seed.router, prefix="/seed", tags=["seed"])
 api_v1.include_router(data_sources.router, prefix="/data", tags=["data"])
 
 app.include_router(api_v1)
