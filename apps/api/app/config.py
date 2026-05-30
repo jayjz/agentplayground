@@ -22,8 +22,8 @@ class Settings(BaseSettings):
     secret_key: str = "change-me-in-production"
     access_token_expire_minutes: int = 30
     
-    # Database
-    database_url: str = "postgresql+asyncpg://agentplayground:agentplayground_dev_password@localhost:5432/agentplayground"
+    # Database - Use SQLite for local development
+    database_url: str = "sqlite+aiosqlite:////home/ubuntu/.openclaw/workspace/agentplayground/data/agentplayground.db"
     
     # Redis
     redis_url: str = "redis://localhost:6379/0"

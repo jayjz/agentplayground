@@ -8,9 +8,8 @@ from app.db.base import Base, UUIDMixin, TimestampMixin
 
 class FactorSignal(Base, UUIDMixin, TimestampMixin):
     __tablename__ = "factor_signals"
-    __table_args__ = {"schema": "research"}
     
-    asset_id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("market_data.assets.id"), nullable=False, index=True)
+    asset_id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assets.id"), nullable=False, index=True)
     signal_date: Mapped[datetime] = mapped_column(Date, nullable=False, index=True)
     signal_type: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
     raw_value: Mapped[float | None] = mapped_column(Numeric(20, 8))

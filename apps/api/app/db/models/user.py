@@ -6,7 +6,6 @@ from app.db.base import Base, UUIDMixin, TimestampMixin
 
 class User(Base, UUIDMixin, TimestampMixin):
     __tablename__ = "users"
-    __table_args__ = {"schema": "public"}
     
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True, nullable=False)
     username: Mapped[str] = mapped_column(String(100), unique=True, index=True, nullable=False)

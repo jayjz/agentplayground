@@ -8,9 +8,8 @@ from app.db.base import Base, UUIDMixin
 
 class PriceBar(Base, UUIDMixin):
     __tablename__ = "price_bars"
-    __table_args__ = {"schema": "market_data"}
     
-    asset_id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("market_data.assets.id"), nullable=False, index=True)
+    asset_id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assets.id"), nullable=False, index=True)
     timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, index=True)
     open: Mapped[float] = mapped_column(Numeric(20, 6), nullable=False)
     high: Mapped[float] = mapped_column(Numeric(20, 6), nullable=False)
