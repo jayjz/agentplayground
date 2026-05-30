@@ -1,63 +1,41 @@
 """
-Signals API endpoints
+Signals API endpoints - P0 implementation with memory store
 """
-from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy.ext.asyncio import AsyncSession
-from pydantic import BaseModel
+from fastapi import APIRouter, Query
 from typing import List, Optional
 from datetime import datetime
-
-from app.dependencies import get_db
+from app.db.memory_store import store
 
 router = APIRouter()
 
 
-class Signal(BaseModel):
-    id: str
-    ticker: str
-    signal_type: str
-    strength: float
-    confidence: float
-    hypothesis: str
-    created_at: datetime
-    metadata: dict = {}
-
-
-class SignalCreate(BaseModel):
-    ticker: str
-    signal_type: str
-    hypothesis: str
-    metadata: dict = {}
-
-
-@router.get("/", response_model=List[Signal])
+@router.get("/")
 async def list_signals(
     ticker: Optional[str] = None,
     signal_type: Optional[str] = None,
     limit: int = Query(100, le=1000),
-    db: AsyncSession = Depends(get_db),
 ):
     """List research signals"""
-    # TODO: Implement database query
-    return []
+    signals = store.get_signals(limit)
+    
+    # Apply filters
+    if ticker:
+        signals = [s for s in signals if s.get("ticker") == ticker]
+    if signal_type:
+        signals = [s for s in signals if s.get("signal_type") == signal_type]
+    
+    return {
+        "items": signals,
+        "count": len(signals)
+    }
 
 
-@router.post("/", response_model=Signal)
-async def create_signal(
-    signal: SignalCreate,
-    db: AsyncSession = Depends(get_db),
-):
-    """Create a new research signal"""
-    # TODO: Implement signal creation
-    # TODO: Trigger agent workflow
-    raise HTTPException(status_code=501, detail="Not implemented")
-
-
-@router.get("/{signal_id}", response_model=Signal)
-async def get_signal(
-    signal_id: str,
-    db: AsyncSession = Depends(get_db),
-):
+@router.get("/{signal_id}")
+async def get_signal(signal_id: str):
     """Get signal by ID"""
-    # TODO: Implement database query
-    raise HTTPException(status_code=404, detail="Signal not found")
+    signals = store.get_signals(1000)
+    for signal in signals:
+        if signal.get("id") == signal_id:
+            return {"item": signal}
+    
+    return {"detail": "Signal not found"}, 404

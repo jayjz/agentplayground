@@ -18,4 +18,4 @@ class EventSignal(Base, UUIDMixin, TimestampMixin):
     direction: Mapped[str | None] = mapped_column(String(20))
     rationale: Mapped[str] = mapped_column(Text, nullable=False)
     source_ref: Mapped[str | None] = mapped_column(String(500))
-    metadata: Mapped[dict] = mapped_column(JSONB, default=dict)
+    extra_data: Mapped[dict] = mapped_column(JSONB, default=dict)
