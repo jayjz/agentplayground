@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.logging import setup_logging
+from app.api import health, signals, events, agents, portfolio, backtests, audits, data_sources, assets
 from app.telemetry import setup_telemetry
 
 
