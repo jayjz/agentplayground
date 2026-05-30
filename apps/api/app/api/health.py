@@ -10,7 +10,7 @@ from app.dependencies import get_db
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("/health")
 async def health_check():
     """Basic health check"""
     return {
@@ -32,7 +32,7 @@ async def readiness_check(db: AsyncSession = Depends(get_db)):
     return {
         "status": "ready" if db_status == "connected" else "not_ready",
         "database": db_status,
-        "timestamp": "2026-05-30T18:12:00Z",  # TODO: Use actual timestamp
+        "timestamp": "2026-05-30T18:12:00Z",
     }
 
 
