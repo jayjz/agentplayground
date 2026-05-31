@@ -5,7 +5,6 @@ import structlog
 
 logger = structlog.get_logger(__name__)
 
-
 class AgentState(BaseModel):
     """Shared state across all agents"""
     task_id: str
@@ -19,7 +18,6 @@ class AgentState(BaseModel):
     next_steps: list[str] = []
     human_approval_needed: bool = True
     status: str = "initialized"
-
 
 class BaseAgent(ABC):
     """Base class for all agents"""
