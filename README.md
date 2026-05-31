@@ -246,6 +246,32 @@ pnpm test:e2e    # E2E with Playwright
 - [Data Model](docs/data-model.md) - Database schema and relationships
 - [Deployment Guide](docs/deployment.md) - Production deployment
 
+### Windows Installation (PowerShell)
+
+The project works on Windows, but requires a few adjustments:
+
+```powershell
+# 1. Clone the repo
+git clone https://github.com/jayjz/agentplayground.git
+cd agentplayground
+
+# 2. Copy env file
+Copy-Item .env.example .env
+# Edit .env with your API keys (use Notepad or VS Code)
+
+# 3. (Optional but recommended) Use WSL2 for best experience
+#    or continue with native Windows
+
+# Native Windows route:
+cd apps\api
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+
+# For the web frontend
+cd ..\..\apps\web
+pnpm install
+
 ## ⚠️ Important Disclaimers
 
 **Research Software:** This is a research and educational platform, not a production trading system.
